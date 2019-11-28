@@ -1,1 +1,1 @@
-export { sum } from './sum';
+export { PeriodType } from './model/period-type';
