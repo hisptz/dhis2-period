@@ -1,2 +1,3 @@
-# Typescript Library Starter
-Typescript based boilerplate library for simplifying creation of typescript based libraries
+# DHIS2 Period Library
+
+Typescript library with period services for DHIS2 apps
