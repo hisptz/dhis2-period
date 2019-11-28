@@ -1,4 +1,4 @@
-import { PeriodTypeModel } from '../interfaces/period-types.interface';
+import { PeriodTypeInterface } from '../interfaces/period-types.interface';
 
 export enum PeriodTypeEnum {
   MONTHLY = 'Monthly',
@@ -21,7 +21,7 @@ export enum PeriodTypeEnum {
   RELATIVE_FINANCIAL_YEAR = 'RelativeFinancialYear',
 }
 
-export const periodTypes: PeriodTypeModel[] = [
+export const periodTypes: PeriodTypeInterface[] = [
   { id: PeriodTypeEnum.MONTHLY, name: PeriodTypeEnum.MONTHLY, rank: 3 },
   { id: PeriodTypeEnum.BI_MONTHLY, name: PeriodTypeEnum.BI_MONTHLY, rank: 4 },
   { id: PeriodTypeEnum.QUARTERLY, name: PeriodTypeEnum.QUARTERLY, rank: 5 },
