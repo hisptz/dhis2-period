@@ -1,5 +1,5 @@
 import { periodTypes } from '../constants/period-types.constant';
-import { PeriodTypeInterface } from '../interfaces/period-types.interface';
+import { PeriodTypeInterface } from '../interfaces/period-type.interface';
 
 export class PeriodType {
   private _periodTypes: PeriodTypeInterface[];

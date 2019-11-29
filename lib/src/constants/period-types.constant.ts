@@ -1,4 +1,4 @@
-import { PeriodTypeInterface } from '../interfaces/period-types.interface';
+import { PeriodTypeInterface } from '../interfaces/period-type.interface';
 
 export enum PeriodTypeEnum {
   MONTHLY = 'Monthly',
