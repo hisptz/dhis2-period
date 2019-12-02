@@ -1,7 +1,7 @@
-import { BaseCalender } from './base-calendar.utility';
-import { CalendarEpoch, CalendarName } from '../constants/calendar.constant';
+import { BaseCalendar } from './base-calendar.utility';
+import { CalendarEpoch, CalendarName } from '../../constants/calendar.constant';
 
-export class EthiopianCalendar extends BaseCalender {
+export class EthiopianCalendar extends BaseCalendar {
   private _gregorianEpoch: number;
   private _quarterMonthOffset: number;
   constructor() {

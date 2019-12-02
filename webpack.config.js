@@ -1,6 +1,7 @@
 const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const TypedocWebpackPlugin = require('typedoc-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const { env } = require('yargs').argv;
 const package = require('./package.json');
@@ -52,5 +53,16 @@ module.exports = {
       { from: 'lib/*.md', to: '', flatten: true },
       { from: 'LICENSE', to: '' },
     ]),
+    new TypedocWebpackPlugin(
+      {
+        name: 'DHIS2 Period',
+        mode: 'file',
+        out: '../docs',
+        theme: 'default',
+        includeDeclarations: false,
+        ignoreCompilerErrors: true,
+      },
+      './lib'
+    ),
   ],
 };

@@ -1,6 +1,6 @@
 import { CalendarDate } from './calendar-date.utility';
 
-export class BaseCalender {
+export class BaseCalendar {
   _validateLevel: number;
   _name: string;
   _hasYearZero: boolean;

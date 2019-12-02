@@ -1,9 +1,8 @@
 import { chunk, head, last, range } from 'lodash';
 
-import { Calendar } from './calendar.utility';
+import { Calendar } from './calendar/calendar.utility';
 
 export class PeriodInstance {
-  private _calendarId: string;
   private _type: string;
   private _preferences: any;
   private _periods: any[];
@@ -24,12 +23,11 @@ export class PeriodInstance {
     preferences: any,
     year: number
   ) {
-    this._calendarId = calendarId || 'gregorian';
     this._type = type;
     this._preferences = preferences;
     this._periods = [];
 
-    this._calendar = new Calendar(calendarId);
+    this._calendar = new Calendar(calendarId || 'gregorian');
 
     if (!this._calendar) {
       throw new Error('Calendar could not be set');

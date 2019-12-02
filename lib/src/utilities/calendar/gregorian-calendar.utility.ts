@@ -1,7 +1,7 @@
-import { BaseCalender } from './base-calendar.utility';
-import { CalendarEpoch, CalendarName } from '../constants/calendar.constant';
+import { BaseCalendar } from './base-calendar.utility';
+import { CalendarEpoch, CalendarName } from '../../constants/calendar.constant';
 
-export class GregorianCalendar extends BaseCalender {
+export class GregorianCalendar extends BaseCalendar {
   constructor() {
     super();
     this._name = CalendarName.GREGORIAN;

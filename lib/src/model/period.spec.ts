@@ -1,4 +1,5 @@
 import { Period } from './period';
+import { PeriodSortOrderEnum } from '../constants/period.constant';
 
 describe('Given and instance of period class', () => {
   let period = new Period();
@@ -86,7 +87,7 @@ describe('Given I set quarterly period type for gregorian calendar', () => {
     .setCalendar('gregorian')
     .setPreferences({
       allowFuturePeriods: false,
-      childrenPeriodSortOrder: 'ASC',
+      childrenPeriodSortOrder: PeriodSortOrderEnum.ASCENDING,
     })
     .get();
   const periodResult = period.list();

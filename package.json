@@ -7,8 +7,7 @@
   "scripts": {
     "start": "webpack-dev-server --env dev",
     "build": "webpack --env prod",
-    "test": "jest",
-    "generate-docs": "node_modules/.bin/jsdoc -c jsdoc.json"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -32,6 +31,8 @@
     "jest": "^24.9.0",
     "ts-jest": "^24.0.2",
     "ts-loader": "^6.0.4",
+    "typedoc": "^0.15.3",
+    "typedoc-webpack-plugin": "^1.1.4",
     "typescript": "^3.6.2",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.39.3",

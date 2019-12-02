@@ -1,5 +1,6 @@
 import { PeriodInstance } from '../utilities/period-instance.utility';
 import { PeriodType } from './period-type';
+import { PeriodInterface } from '../interfaces/period.interface';
 
 /**
  * @description
@@ -11,7 +12,7 @@ export class Period {
   private _type: string;
   private _year: number;
   private _preferences: any;
-  private _periods: any[];
+  private _periods: PeriodInterface[];
   private _currentYear: number;
   constructor() {
     this._calendarId = 'gregorian';
@@ -69,19 +70,19 @@ export class Period {
     return this;
   }
 
-  type() {
+  type(): string {
     return this._type;
   }
 
-  list() {
+  list(): PeriodInterface[] {
     return this._periods;
   }
 
-  year() {
+  year(): number {
     return this._year;
   }
 
-  currentYear() {
+  currentYear(): number {
     return this._currentYear;
   }
 }
