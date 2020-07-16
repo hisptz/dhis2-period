@@ -1,5 +1,5 @@
 {
-  "name": "dhis2-period",
+  "name": "@iapps/period-engine",
   "version": "1.0.0",
   "repository": {
     "type": "git",

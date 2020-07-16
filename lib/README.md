@@ -1,3 +1,3 @@
-# Typescript Library
+# Period Engine
 
-Typescript based boilerplate library for simplifying creation of typescript based libraries
+Javascript library for generating different periods and period types following period formats user by DHIS2 Based applications
