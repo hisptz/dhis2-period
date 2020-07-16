@@ -10,5 +10,8 @@
   "bugs": {
     "url": "https://github.com/rajey/typescript-library-starter/issues"
   },
-  "homepage": "https://github.com/rajey/typescript-library-starter#readme"
+  "homepage": "https://github.com/rajey/typescript-library-starter#readme",
+  "peerDependencies": {
+    "lodash": "^4.17.15"
+  }
 }
