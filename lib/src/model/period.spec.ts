@@ -19,10 +19,7 @@ describe('Given I set period type', () => {
 
 describe('Given I set monthly period type for ethiopian calendar', () => {
   let period = new Period();
-  period
-    .setCalendar('ethiopian')
-    .setType('Monthly')
-    .get();
+  period.setCalendar('ethiopian').setType('Monthly').get();
 
   const periodResult = period.list();
 
@@ -33,10 +30,7 @@ describe('Given I set monthly period type for ethiopian calendar', () => {
 
 describe('Given I set monthly period type for gregorian calendar', () => {
   let period = new Period();
-  period
-    .setCalendar('gregorian')
-    .setType('Monthly')
-    .get();
+  period.setCalendar('gregorian').setType('Monthly').get();
 
   const periodResult = period.list();
 
@@ -47,10 +41,7 @@ describe('Given I set monthly period type for gregorian calendar', () => {
 
 describe('Given I set monthly period type for gregorian calendar and previous year', () => {
   let period = new Period();
-  period
-    .setCalendar('gregorian')
-    .setType('Monthly')
-    .get();
+  period.setCalendar('gregorian').setType('Monthly').get();
   const previousYear = period.currentYear() - 1;
 
   period.setYear(previousYear).get();
@@ -64,10 +55,7 @@ describe('Given I set monthly period type for gregorian calendar and previous ye
 
 describe('Given I set monthly period type for ethiopian calendar and previous year', () => {
   const ethiopianPeriod = new Period();
-  ethiopianPeriod
-    .setCalendar('ethiopian')
-    .setType('Monthly')
-    .get();
+  ethiopianPeriod.setCalendar('ethiopian').setType('Monthly').get();
 
   const previousYear = ethiopianPeriod.currentYear() - 1;
 
