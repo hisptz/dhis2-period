@@ -1,12 +1,8 @@
-import { chunk, head, last, range, find } from 'lodash';
-
-import { Calendar } from './calendar/calendar.utility';
+import { chunk, find, head, last, range } from 'lodash';
 import { PeriodTypeEnum } from '../constants/period-types.constant';
-import { PeriodInterface } from '../interfaces/period.interface';
-import { getLastFourQuarters } from '../helpers/get-last-four-quarters.helper';
-import { getLastTwoSixMonths } from '../helpers/get-last-two-six-months.helper';
-import { getLastSixBiMonthlyPeriods } from '../helpers/get-last-six-bi-months.helper';
 import { getLastNthPeriods } from '../helpers/get-last-nth-periods.helper';
+import { PeriodInterface } from '../interfaces/period.interface';
+import { Calendar } from './calendar/calendar.utility';
 
 export class PeriodInstance {
   private _type: string;
@@ -327,9 +323,10 @@ export class PeriodInstance {
             id: 'LAST_4_QUARTERS',
             type,
             name: 'Last 4 Quarters',
-            iso: getLastFourQuarters(
+            iso: getLastNthPeriods(
               [...lastYearQuarterPeriods, ...quarterPeriods],
-              currentQuarter
+              currentQuarter,
+              4
             ),
           },
         ];
@@ -369,9 +366,10 @@ export class PeriodInstance {
             id: 'LAST_2_SIXMONTHS',
             type,
             name: 'Last 2 Six-month',
-            iso: getLastTwoSixMonths(
+            iso: getLastNthPeriods(
               [...lastSixMonthlyPeriods, ...sixMonthlyPeriods],
-              currentSixMonthly
+              currentSixMonthly,
+              2
             ),
           },
         ];
