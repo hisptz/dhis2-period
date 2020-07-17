@@ -6,6 +6,7 @@ describe('Given I supply current six month and two years six month periods inclu
       id: '2019S1',
       type: 'SixMonthly',
       name: 'January - June 2019',
+
       lastPeriod: { id: '2018S2', name: 'July - December 2018' },
     },
     {
@@ -37,7 +38,7 @@ describe('Given I supply current six month and two years six month periods inclu
     sixMonthPeriods,
     currentSixMonthPeriod
   );
-  it('should return four last six month periods previous to the current selected six month', () => {
+  it('should return two last six month periods previous to the current selected six month', () => {
     expect(lastTwoSixMonths.length).toEqual(2);
     expect(lastTwoSixMonths.indexOf(currentSixMonthPeriod)).toEqual(-1);
   });

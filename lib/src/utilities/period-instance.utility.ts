@@ -5,6 +5,7 @@ import { PeriodTypeEnum } from '../constants/period-types.constant';
 import { PeriodInterface } from '../interfaces/period.interface';
 import { getLastFourQuarters } from '../helpers/get-last-four-quarters.helper';
 import { getLastTwoSixMonths } from '../helpers/get-last-two-six-months.helper';
+import { getLastSixBiMonthlyPeriods } from '../helpers/get-last-six-bi-months.helper';
 
 export class PeriodInstance {
   private _type: string;
@@ -172,14 +173,46 @@ export class PeriodInstance {
   getRelativePeriods(type: string) {
     switch (type) {
       case 'RelativeBiMonth': {
+        const biMonthlyPeriods = this.includeLastPeriods(
+          this.getBiMonthlyPeriods(this._year),
+          PeriodTypeEnum.BI_MONTHLY,
+          this._year
+        );
+
+        const lastBiMonthlyPeriods = this.includeLastPeriods(
+          this.getBiMonthlyPeriods(this._year - 1),
+          PeriodTypeEnum.BI_MONTHLY,
+          this._year - 1
+        );
+
+        const currentBiMonthlyPeriod: PeriodInterface = find(
+          biMonthlyPeriods || [],
+          ['id', this.getBiMonthlyPeriodId(this._year, this._biMonth)]
+        );
         return [
-          { id: 'THIS_BIMONTH', type, name: 'This Bi-month' },
+          {
+            id: 'THIS_BIMONTH',
+            type,
+            name: 'This Bi-month',
+            iso: currentBiMonthlyPeriod,
+          },
           {
             id: 'LAST_BIMONTH',
             type,
             name: 'Last Bi-month',
+            iso: currentBiMonthlyPeriod
+              ? currentBiMonthlyPeriod.lastPeriod
+              : null,
           },
-          { id: 'LAST_6_BIMONTHS', type, name: 'Last 6 bi-month' },
+          {
+            id: 'LAST_6_BIMONTHS',
+            type,
+            name: 'Last 6 bi-month',
+            iso: getLastSixBiMonthlyPeriods(
+              [...lastBiMonthlyPeriods, ...biMonthlyPeriods],
+              currentBiMonthlyPeriod
+            ),
+          },
         ];
       }
 
