@@ -1,4 +1,4 @@
-import { chunk, find, head, last, range } from 'lodash';
+import { chunk, find, head, last, range, uniqBy } from 'lodash';
 import { PeriodTypeEnum } from '../constants/period-types.constant';
 import { getLastNthPeriods } from '../helpers/get-last-nth-periods.helper';
 import { PeriodInterface } from '../interfaces/period.interface';
@@ -377,15 +377,16 @@ export class PeriodInstance {
 
       case 'RelativeYear': {
         const yearPeriods = this.includeLastPeriods(
-          this.getYearlyPeriods(this._year, PeriodTypeEnum.YEARLY),
+          this.getYearlyPeriods(this._year, PeriodTypeEnum.YEARLY, '', -1, 20),
           PeriodTypeEnum.YEARLY,
           this._year
         );
 
         const currentYear: PeriodInterface = find(yearPeriods || [], [
           'id',
-          this._year,
+          this._year.toString(),
         ]);
+
         return [
           { id: 'THIS_YEAR', type, name: 'This Year', iso: currentYear },
           {
@@ -399,6 +400,12 @@ export class PeriodInstance {
             type,
             name: 'Last 5 Years',
             iso: getLastNthPeriods(yearPeriods, currentYear, 5),
+          },
+          {
+            id: 'LAST_10_YEARS',
+            type,
+            name: 'Last 10 Years',
+            iso: getLastNthPeriods(yearPeriods, currentYear, 10),
           },
         ];
       }
@@ -688,8 +695,14 @@ export class PeriodInstance {
     });
   }
 
-  getYearlyPeriods(year: any, type: string, idSuffix = '', monthIndex = -1) {
-    return range(10)
+  getYearlyPeriods(
+    year: any,
+    type: string,
+    idSuffix = '',
+    monthIndex = -1,
+    yearRange: number = 10
+  ) {
+    return range(yearRange)
       .map((yearIndex) => {
         const periodYear = parseInt(year, 10) - yearIndex;
         const id = this.getYearlyPeriodId(periodYear, idSuffix);

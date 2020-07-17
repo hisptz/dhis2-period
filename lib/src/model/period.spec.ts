@@ -168,3 +168,12 @@ describe('Given I set a relative monthly valid period id', () => {
     expect(periodObject.id).toEqual('LAST_MONTH');
   });
 });
+
+describe('Given I set a relative ten years period', () => {
+  let period = new Period();
+  const periodObject: PeriodInterface = period.getById('LAST_10_YEARS');
+
+  it('should return ten iso formated periods', () => {
+    expect(periodObject.iso.length).toEqual(10);
+  });
+});

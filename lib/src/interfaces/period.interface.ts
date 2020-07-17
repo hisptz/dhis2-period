@@ -1,6 +1,6 @@
 export interface PeriodInterface {
   id: string;
-  iso?: PeriodInterface[] | PeriodInterface | string;
+  iso?: any;
   name: string;
   type?: string;
   lastPeriod?: PeriodInterface;

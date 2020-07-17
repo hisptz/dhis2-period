@@ -76,6 +76,7 @@ export class Period {
   getById(id: string): PeriodInterface {
     this._type = deducePeriodTypeFromId(id);
     this._year = getPeriodYearFromId(id);
+
     const periodList = this.get().list();
     return find(periodList, ['id', id]);
   }
