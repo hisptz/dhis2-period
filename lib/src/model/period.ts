@@ -2,6 +2,8 @@ import { PeriodInstance } from '../utilities/period-instance.utility';
 import { PeriodType } from './period-type';
 import { PeriodInterface } from '../interfaces/period.interface';
 import { deducePeriodTypeFromId } from '../helpers/deduce-period-type-from-id.helper';
+import { getPeriodYearFromId } from '../helpers/get-period-year-from-id.helper';
+import { find } from 'lodash';
 
 /**
  * @description
@@ -72,8 +74,10 @@ export class Period {
   }
 
   getById(id: string): PeriodInterface {
-    // console.log(deducePeriodTypeFromId(id));
-    return null;
+    this._type = deducePeriodTypeFromId(id);
+    this._year = getPeriodYearFromId(id);
+    const periodList = this.get().list();
+    return find(periodList, ['id', id]);
   }
 
   type(): string {

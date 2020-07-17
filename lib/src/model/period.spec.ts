@@ -151,10 +151,20 @@ describe('Given I set relative year period type for gregorian calendar', () => {
   });
 });
 
-describe('Given I set certain valid period id', () => {
+describe('Given I set a monthly valid period id', () => {
   let period = new Period();
   const periodObject: PeriodInterface = period.getById('201001');
-  it('should return period details for the supplied id', () => {
-    // expect(periodObject).not.toBeNull();
+
+  it('should return month period details for the supplied id', () => {
+    expect(periodObject.id).toEqual('201001');
+  });
+});
+
+describe('Given I set a relative monthly valid period id', () => {
+  let period = new Period();
+  const periodObject: PeriodInterface = period.getById('LAST_MONTH');
+
+  it('should return relative month period details for the supplied id', () => {
+    expect(periodObject.id).toEqual('LAST_MONTH');
   });
 });
