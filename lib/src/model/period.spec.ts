@@ -167,6 +167,10 @@ describe('Given I set a relative monthly valid period id', () => {
   it('should return relative month period details for the supplied id', () => {
     expect(periodObject.id).toEqual('LAST_MONTH');
   });
+
+  it('should return iso formatted for supplied relative monthly id', () => {
+    expect(periodObject.iso).toBeDefined();
+  });
 });
 
 describe('Given I set a relative ten years period', () => {
