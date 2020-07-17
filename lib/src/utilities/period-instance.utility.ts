@@ -4,6 +4,7 @@ import { Calendar } from './calendar/calendar.utility';
 import { PeriodTypeEnum } from '../constants/period-types.constant';
 import { PeriodInterface } from '../interfaces/period.interface';
 import { getLastFourQuarters } from '../helpers/get-last-four-quarters.helper';
+import { getLastTwoSixMonths } from '../helpers/get-last-two-six-months.helper';
 
 export class PeriodInstance {
   private _type: string;
@@ -232,7 +233,7 @@ export class PeriodInstance {
             type,
             name: 'Last 4 Quarters',
             iso: getLastFourQuarters(
-              [...quarterPeriods, ...lastYearQuarterPeriods],
+              [...lastYearQuarterPeriods, ...quarterPeriods],
               currentQuarter
             ),
           },
@@ -240,14 +241,44 @@ export class PeriodInstance {
       }
 
       case 'RelativeSixMonth': {
+        const sixMonthlyPeriods = this.includeLastPeriods(
+          this.getSixMonthlyPeriods(this._year),
+          PeriodTypeEnum.SIX_MONTHLY,
+          this._year
+        );
+
+        const lastSixMonthlyPeriods = this.includeLastPeriods(
+          this.getSixMonthlyPeriods(this._year - 1),
+          PeriodTypeEnum.SIX_MONTHLY,
+          this._year - 1
+        );
+
+        const currentSixMonthly: PeriodInterface = find(
+          sixMonthlyPeriods || [],
+          ['id', this.getSixMonthlyPeriodId(this._year, this._sixMonth)]
+        );
         return [
-          { id: 'THIS_SIX_MONTH', type, name: 'This Six-month' },
+          {
+            id: 'THIS_SIX_MONTH',
+            type,
+            name: 'This Six-month',
+            iso: currentSixMonthly,
+          },
           {
             id: 'LAST_SIX_MONTH',
             type,
             name: 'Last Six-month',
+            iso: currentSixMonthly ? currentSixMonthly.lastPeriod : null,
           },
-          { id: 'LAST_2_SIXMONTHS', type, name: 'Last 2 Six-month' },
+          {
+            id: 'LAST_2_SIXMONTHS',
+            type,
+            name: 'Last 2 Six-month',
+            iso: getLastTwoSixMonths(
+              [...lastSixMonthlyPeriods, ...sixMonthlyPeriods],
+              currentSixMonthly
+            ),
+          },
         ];
       }
 
