@@ -1,6 +1,9 @@
-import { chunk, head, last, range } from 'lodash';
+import { chunk, head, last, range, find } from 'lodash';
 
 import { Calendar } from './calendar/calendar.utility';
+import { PeriodTypeEnum } from '../constants/period-types.constant';
+import { PeriodInterface } from '../interfaces/period.interface';
+import { getLastFourQuarters } from '../helpers/get-last-four-quarters.helper';
 
 export class PeriodInstance {
   private _type: string;
@@ -194,14 +197,45 @@ export class PeriodInstance {
       }
 
       case 'RelativeQuarter': {
+        const quarterPeriods = this.includeLastPeriods(
+          this.getQuarterlyPeriods(this._year),
+          PeriodTypeEnum.QUARTERLY,
+          this._year
+        );
+
+        const lastYearQuarterPeriods = this.includeLastPeriods(
+          this.getQuarterlyPeriods(this._year - 1),
+          PeriodTypeEnum.QUARTERLY,
+          this._year - 1
+        );
+
+        const currentQuarter: PeriodInterface = find(quarterPeriods || [], [
+          'id',
+          this.getQuarterPeriodId(this._year, this._quarter),
+        ]);
+
         return [
-          { id: 'THIS_QUARTER', type, name: 'This Quarter' },
+          {
+            id: 'THIS_QUARTER',
+            type,
+            name: 'This Quarter',
+            iso: currentQuarter,
+          },
           {
             id: 'LAST_QUARTER',
             type,
             name: 'Last Quarter',
+            iso: currentQuarter ? currentQuarter.lastPeriod : null,
           },
-          { id: 'LAST_4_QUARTERS', type, name: 'Last 4 Quarters' },
+          {
+            id: 'LAST_4_QUARTERS',
+            type,
+            name: 'Last 4 Quarters',
+            iso: getLastFourQuarters(
+              [...quarterPeriods, ...lastYearQuarterPeriods],
+              currentQuarter
+            ),
+          },
         ];
       }
 
@@ -516,7 +550,7 @@ export class PeriodInstance {
 
   getYearlyPeriods(year: any, type: string, idSuffix = '', monthIndex = -1) {
     return range(10)
-      .map(yearIndex => {
+      .map((yearIndex) => {
         const periodYear = parseInt(year, 10) - yearIndex;
         const id = this.getYearlyPeriodId(periodYear, idSuffix);
         const name = this.getYearlyPeriodName(periodYear, monthIndex);
@@ -550,7 +584,9 @@ export class PeriodInstance {
   }
 
   omitFuturePeriods(periods: any[], type: string) {
-    return periods.filter(period => period.id < this.getCurrentPeriodId(type));
+    return periods.filter(
+      (period) => period.id < this.getCurrentPeriodId(type)
+    );
   }
 
   getCurrentPeriodId(type: string) {
