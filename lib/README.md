@@ -1,3 +1,3 @@
-# Period Engine
+# Period Utilities
 
-Javascript library for generating different periods and period types following period formats user by DHIS2 Based applications
+Javascript library comprising various DHIS2 based period utilities to help in generating different period parameters for DHIS2 applications
