@@ -376,14 +376,30 @@ export class PeriodInstance {
       }
 
       case 'RelativeYear': {
+        const yearPeriods = this.includeLastPeriods(
+          this.getYearlyPeriods(this._year, PeriodTypeEnum.YEARLY),
+          PeriodTypeEnum.YEARLY,
+          this._year
+        );
+
+        const currentYear: PeriodInterface = find(yearPeriods || [], [
+          'id',
+          this._year,
+        ]);
         return [
-          { id: 'THIS_YEAR', type, name: 'This Year' },
+          { id: 'THIS_YEAR', type, name: 'This Year', iso: currentYear },
           {
             id: 'LAST_YEAR',
             type,
             name: 'Last Year',
+            iso: currentYear ? currentYear.lastPeriod : null,
           },
-          { id: 'LAST_5_YEARS', type, name: 'Last 5 Years' },
+          {
+            id: 'LAST_5_YEARS',
+            type,
+            name: 'Last 5 Years',
+            iso: getLastNthPeriods(yearPeriods, currentYear, 5),
+          },
         ];
       }
 

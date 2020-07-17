@@ -569,3 +569,79 @@ describe('Given I supply current month and three years month periods including c
     expect(lastTwelveMonths.indexOf(currentMonthPeriod)).toEqual(-1);
   });
 });
+
+describe('Given I supply current year and yearly periods including current', () => {
+  const yearlyPeriods: PeriodInterface[] = [
+    {
+      id: '2011',
+      type: 'Yearly',
+      name: '2011',
+      lastPeriod: { id: '2019', name: '2019' },
+    },
+    {
+      id: '2012',
+      type: 'Yearly',
+      name: '2012',
+      lastPeriod: { id: '2011', name: '2011' },
+    },
+    {
+      id: '2013',
+      type: 'Yearly',
+      name: '2013',
+      lastPeriod: { id: '2012', name: '2012' },
+    },
+    {
+      id: '2014',
+      type: 'Yearly',
+      name: '2014',
+      lastPeriod: { id: '2013', name: '2013' },
+    },
+    {
+      id: '2015',
+      type: 'Yearly',
+      name: '2015',
+      lastPeriod: { id: '2014', name: '2014' },
+    },
+    {
+      id: '2016',
+      type: 'Yearly',
+      name: '2016',
+      lastPeriod: { id: '2015', name: '2015' },
+    },
+    {
+      id: '2017',
+      type: 'Yearly',
+      name: '2017',
+      lastPeriod: { id: '2016', name: '2016' },
+    },
+    {
+      id: '2018',
+      type: 'Yearly',
+      name: '2018',
+      lastPeriod: { id: '2017', name: '2017' },
+    },
+    {
+      id: '2019',
+      type: 'Yearly',
+      name: '2019',
+      lastPeriod: { id: '2018', name: '2018' },
+    },
+    {
+      id: '2020',
+      type: 'Yearly',
+      name: '2020',
+      lastPeriod: { id: '2019', name: '2019' },
+    },
+  ];
+  const currentYear: PeriodInterface = {
+    id: '2020',
+    type: 'Yearly',
+    name: '2020',
+    lastPeriod: { id: '2019', name: '2019' },
+  };
+  const lastFiveYears = getLastNthPeriods(yearlyPeriods, currentYear, 5);
+  it('should return five year periods previous to the current selected year', () => {
+    expect(lastFiveYears.length).toEqual(5);
+    expect(lastFiveYears.indexOf(currentYear)).toEqual(-1);
+  });
+});

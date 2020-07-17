@@ -7,4 +7,5 @@ export interface PeriodInterface {
   daily?: any[];
   weekly?: any[];
   monthly?: any[];
+  quarterly?: any[];
 }
