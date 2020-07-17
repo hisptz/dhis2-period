@@ -6,6 +6,7 @@ import { PeriodInterface } from '../interfaces/period.interface';
 import { getLastFourQuarters } from '../helpers/get-last-four-quarters.helper';
 import { getLastTwoSixMonths } from '../helpers/get-last-two-six-months.helper';
 import { getLastSixBiMonthlyPeriods } from '../helpers/get-last-six-bi-months.helper';
+import { getLastNthPeriods } from '../helpers/get-last-nth-periods.helper';
 
 export class PeriodInstance {
   private _type: string;
@@ -208,25 +209,86 @@ export class PeriodInstance {
             id: 'LAST_6_BIMONTHS',
             type,
             name: 'Last 6 bi-month',
-            iso: getLastSixBiMonthlyPeriods(
+            iso: getLastNthPeriods(
               [...lastBiMonthlyPeriods, ...biMonthlyPeriods],
-              currentBiMonthlyPeriod
+              currentBiMonthlyPeriod,
+              6
             ),
           },
         ];
       }
 
       case 'RelativeMonth': {
+        const monthlyPeriods = this.includeLastPeriods(
+          this.getMonthlyPeriods(this._year),
+          PeriodTypeEnum.MONTHLY,
+          this._year
+        );
+
+        const lastMonthlyPeriods = this.includeLastPeriods(
+          this.getMonthlyPeriods(this._year - 1),
+          PeriodTypeEnum.MONTHLY,
+          this._year - 1
+        );
+
+        const lastLastMonthlyPeriods = this.includeLastPeriods(
+          this.getMonthlyPeriods(this._year - 2),
+          PeriodTypeEnum.MONTHLY,
+          this._year - 2
+        );
+
+        const currentMonthlyPeriod: PeriodInterface = find(
+          monthlyPeriods || [],
+          ['id', this.getMonthPeriodId(this._year, this._month)]
+        );
+
         return [
-          { id: 'THIS_MONTH', type, name: 'This Month' },
-          { id: 'LAST_MONTH', type, name: 'Last Month' },
+          {
+            id: 'THIS_MONTH',
+            type,
+            name: 'This Month',
+            iso: currentMonthlyPeriod,
+          },
+          {
+            id: 'LAST_MONTH',
+            type,
+            name: 'Last Month',
+            iso: currentMonthlyPeriod ? currentMonthlyPeriod.lastPeriod : null,
+          },
           {
             id: 'LAST_3_MONTHS',
             type,
             name: 'Last 3 Months',
+            iso: getLastNthPeriods(
+              [...lastMonthlyPeriods, ...monthlyPeriods],
+              currentMonthlyPeriod,
+              3
+            ),
           },
-          { id: 'LAST_6_MONTHS', type, name: 'Last 6 Months' },
-          { id: 'LAST_12_MONTHS', type, name: 'Last 12 Months' },
+          {
+            id: 'LAST_6_MONTHS',
+            type,
+            name: 'Last 6 Months',
+            iso: getLastNthPeriods(
+              [...lastMonthlyPeriods, ...monthlyPeriods],
+              currentMonthlyPeriod,
+              6
+            ),
+          },
+          {
+            id: 'LAST_12_MONTHS',
+            type,
+            name: 'Last 12 Months',
+            iso: getLastNthPeriods(
+              [
+                ...lastLastMonthlyPeriods,
+                ...lastMonthlyPeriods,
+                ...monthlyPeriods,
+              ],
+              currentMonthlyPeriod,
+              12
+            ),
+          },
         ];
       }
 

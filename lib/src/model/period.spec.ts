@@ -129,6 +129,17 @@ describe('Given I set relative bi month period type for gregorian calendar', () 
   });
 });
 
+describe('Given I set relative month period type for gregorian calendar', () => {
+  let period = new Period();
+  period.setCalendar('gregorian').setType(PeriodTypeEnum.RELATIVE_MONTH).get();
+
+  const periodResult = period.list();
+
+  it('should return relative month period list for the current year', () => {
+    expect(periodResult.length > 0).toEqual(true);
+  });
+});
+
 describe('Given I set certain valid period id', () => {
   let period = new Period();
   const periodObject: PeriodInterface = period.getById('201001');
