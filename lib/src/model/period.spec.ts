@@ -76,7 +76,7 @@ describe('Given I set quarterly period type for gregorian calendar', () => {
     .setType('Quarterly')
     .setCalendar('gregorian')
     .setPreferences({
-      allowFuturePeriods: false,
+      allowFuturePeriods: true,
       childrenPeriodSortOrder: PeriodSortOrderEnum.ASCENDING,
     })
     .get();
