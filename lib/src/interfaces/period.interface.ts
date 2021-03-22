@@ -1,5 +1,7 @@
 export interface PeriodInterface {
   id: string;
+  startDate?: string;
+  endDate?: string;
   iso?: any;
   name: string;
   type?: string;

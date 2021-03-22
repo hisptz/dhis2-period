@@ -453,6 +453,12 @@ export class PeriodInstance {
 
         return {
           id,
+          startDate: this.getDate(monthYear, monthIndex + 1, 1),
+          endDate: this.getDate(
+            monthYear,
+            monthIndex + 1,
+            this._calendar.getDaysInMonth(monthYear, monthIndex + 1)
+          ),
           type: 'Monthly',
           name: `${monthName} ${monthYear}`,
           daily: this.getChildrenPeriods(
@@ -836,6 +842,12 @@ export class PeriodInstance {
     return (
       year + (monthNumber < 10 ? `0${monthNumber}` : monthNumber).toString()
     );
+  }
+
+  getDate(year: number, monthNumber: number, day: number) {
+    const month = monthNumber < 10 ? `0${monthNumber}` : monthNumber;
+    const date = day < 10 ? `0${day}` : day;
+    return `${date}-${month}-${year}`;
   }
 
   getQuarterPeriodId(year: number, quarterNumber: number) {
