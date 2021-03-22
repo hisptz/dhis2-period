@@ -594,6 +594,12 @@ export class PeriodInstance {
 
         return {
           id,
+          startDate: this.getDate(year, sixMonthIndex > 0 ? 6 : 1, 1),
+          endDate: this.getDate(
+            year,
+            sixMonthIndex + 6,
+            this._calendar.getDaysInMonth(year, sixMonthIndex + 6)
+          ),
           type: 'SixMonthly',
           name: `${[head(sixMonths || []), last(sixMonths || [])].join(
             ' - '
@@ -633,8 +639,18 @@ export class PeriodInstance {
         'April'
       );
 
+      const month = (sixMonthAprilIndex + 1) * 6 - 2;
+      const nextEndMonth = month + 5;
+      const endMonth = nextEndMonth > 12 ? nextEndMonth - 12 : nextEndMonth;
+
       return {
         id,
+        startDate: this.getDate(year, month, 1),
+        endDate: this.getDate(
+          nextEndMonth > 12 ? year + 1 : year,
+          endMonth,
+          this._calendar.getDaysInMonth(year, endMonth)
+        ),
         type: 'SixMonthlyApril',
         name: this.getPeriodNameByRange(
           head(sixMonthApril || []),

@@ -137,6 +137,48 @@ describe('Given I set financial april year 2020 for gregorian calendar', () => {
   });
 });
 
+describe('Given I set six monthly 2020 for gregorian calendar', () => {
+  let period = new Period();
+  period.setCalendar('gregorian').setType(PeriodTypeEnum.SIX_MONTHLY).get();
+
+  const periodResult = period.getById('2020S1');
+
+  it('should return correct start date and end date for six monthly 2020', () => {
+    expect(periodResult.startDate).toEqual('01-01-2020');
+    expect(periodResult.endDate).toEqual('30-06-2020');
+  });
+});
+
+describe('Given I set six monthly april 2020 for gregorian calendar', () => {
+  let period = new Period();
+  period
+    .setCalendar('gregorian')
+    .setType(PeriodTypeEnum.SIX_MONTHLY_APRIL)
+    .get();
+
+  const periodResult = period.getById('2020AprilS1');
+
+  it('should return correct start date and end date for six monthly april 2020', () => {
+    expect(periodResult.startDate).toEqual('01-04-2020');
+    expect(periodResult.endDate).toEqual('30-09-2020');
+  });
+});
+
+describe('Given I set six monthly april 2020 for gregorian calendar', () => {
+  let period = new Period();
+  period
+    .setCalendar('gregorian')
+    .setType(PeriodTypeEnum.SIX_MONTHLY_APRIL)
+    .get();
+
+  const periodResult = period.getById('2020AprilS2');
+
+  it('should return correct start date and end date for six monthly april 2020', () => {
+    expect(periodResult.startDate).toEqual('01-10-2020');
+    expect(periodResult.endDate).toEqual('31-03-2021');
+  });
+});
+
 describe('Given I set monthly period type for gregorian calendar and previous year', () => {
   let period = new Period();
   period.setCalendar('gregorian').setType('Monthly').get();
