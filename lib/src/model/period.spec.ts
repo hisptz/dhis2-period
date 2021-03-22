@@ -179,6 +179,36 @@ describe('Given I set six monthly april 2020 for gregorian calendar', () => {
   });
 });
 
+describe('Given I set six monthly november 2020 for gregorian calendar', () => {
+  let period = new Period();
+  period
+    .setCalendar('gregorian')
+    .setType(PeriodTypeEnum.SIX_MONTHLY_NOVEMBER)
+    .get();
+
+  const periodResult = period.getById('2020NovS1');
+
+  it('should return correct start date and end date for six monthly november 2020', () => {
+    expect(periodResult.startDate).toEqual('01-11-2020');
+    expect(periodResult.endDate).toEqual('30-04-2021');
+  });
+});
+
+describe('Given I set six monthly november 2020 for gregorian calendar', () => {
+  let period = new Period();
+  period
+    .setCalendar('gregorian')
+    .setType(PeriodTypeEnum.SIX_MONTHLY_NOVEMBER)
+    .get();
+
+  const periodResult = period.getById('2020NovS2');
+
+  it('should return correct start date and end date for six monthly november 2020', () => {
+    expect(periodResult.startDate).toEqual('01-05-2021');
+    expect(periodResult.endDate).toEqual('31-10-2021');
+  });
+});
+
 describe('Given I set monthly period type for gregorian calendar and previous year', () => {
   let period = new Period();
   period.setCalendar('gregorian').setType('Monthly').get();

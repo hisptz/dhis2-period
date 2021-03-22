@@ -1,4 +1,4 @@
-import { chunk, find, head, last, range, uniqBy } from 'lodash';
+import { chunk, find, head, last, range, sortBy, uniqBy } from 'lodash';
 import { PeriodTypeEnum } from '../constants/period-types.constant';
 import { getLastNthPeriods } from '../helpers/get-last-nth-periods.helper';
 import { PeriodInterface } from '../interfaces/period.interface';
@@ -681,9 +681,12 @@ export class PeriodInstance {
 
   getSixMonthlyNovemberPeriods(year: number) {
     return chunk(
-      this.getMonthsByOffset(
-        this.getMonthWithYears(this._monthNames, year, -2),
-        this._quarterMonthOffset
+      sortBy(
+        this.getMonthsByOffset(
+          this.getMonthWithYears(this._monthNames, year + 1, -2),
+          this._quarterMonthOffset
+        ),
+        ['year', 'index']
       ),
       6
     ).map((sixMonthNovember, sixMonthNovemberIndex) => {
@@ -693,8 +696,19 @@ export class PeriodInstance {
         'Nov'
       );
 
+      const startMonth = (sixMonthNovemberIndex + 1) * 6 + 5;
+      const month = startMonth > 12 ? startMonth - 12 : startMonth;
+      const nextEndMonth = month + 5;
+      const endMonth = nextEndMonth > 12 ? nextEndMonth - 12 : nextEndMonth;
+
       return {
         id,
+        startDate: this.getDate(startMonth > 12 ? year + 1 : year, month, 1),
+        endDate: this.getDate(
+          year + 1,
+          endMonth,
+          this._calendar.getDaysInMonth(year, endMonth)
+        ),
         type: 'SixMonthlyNovember',
         name: this.getPeriodNameByRange(
           head(sixMonthNovember || []),

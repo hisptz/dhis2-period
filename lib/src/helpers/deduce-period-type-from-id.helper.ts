@@ -15,6 +15,8 @@ export function deducePeriodTypeFromId(periodId: string): string {
       periodType = PeriodTypeEnum.SIX_MONTHLY_APRIL;
     } else if (periodId.indexOf('April') !== -1) {
       periodType = PeriodTypeEnum.FINANCIAL_APRIL;
+    } else if (periodId.indexOf('NovS') !== -1) {
+      periodType = PeriodTypeEnum.SIX_MONTHLY_NOVEMBER;
     } else if (periodId.indexOf('S') !== -1) {
       periodType = PeriodTypeEnum.SIX_MONTHLY;
     } else if (periodId.indexOf('July') !== -1) {
