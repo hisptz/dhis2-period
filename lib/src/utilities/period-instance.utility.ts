@@ -720,10 +720,20 @@ export class PeriodInstance {
         const id = this.getYearlyPeriodId(periodYear, idSuffix);
         const name = this.getYearlyPeriodName(periodYear, monthIndex);
 
+        const endMonth = monthIndex + 13 > 12 ? monthIndex : monthIndex + 13;
+
         return {
           id,
-          startDate: this.getDate(periodYear, 1, 1),
-          endDate: this.getDate(periodYear, 12, 31),
+          startDate: this.getDate(
+            periodYear,
+            monthIndex + (monthIndex < 0 ? 2 : 1),
+            1
+          ),
+          endDate: this.getDate(
+            periodYear,
+            endMonth,
+            this._calendar.getDaysInMonth(periodYear, endMonth)
+          ),
           type,
           name,
           daily: this.getChildrenPeriods(id, type, 'Daily', this._preferences),

@@ -125,6 +125,18 @@ describe('Given I set year 2020 for gregorian calendar', () => {
   });
 });
 
+describe('Given I set financial april year 2020 for gregorian calendar', () => {
+  let period = new Period();
+  period.setCalendar('gregorian').setType(PeriodTypeEnum.FINANCIAL_APRIL).get();
+
+  const periodResult = period.getById('2020April');
+
+  it('should return correct start date and end date for financial april 2020', () => {
+    expect(periodResult.startDate).toEqual('01-04-2020');
+    expect(periodResult.endDate).toEqual('31-03-2020');
+  });
+});
+
 describe('Given I set monthly period type for gregorian calendar and previous year', () => {
   let period = new Period();
   period.setCalendar('gregorian').setType('Monthly').get();
