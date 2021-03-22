@@ -6,8 +6,10 @@
     "module": "commonjs",
     "target": "es2018",
     "jsx": "react",
-    "allowJs": true,
-    "removeComments": true
+    "removeComments": true,
+    "noEmit": false,
+    "declaration": true,
+    "resolveJsonModule": true
   },
   "exclude": ["**/*.spec.ts", "node_modules"]
 }

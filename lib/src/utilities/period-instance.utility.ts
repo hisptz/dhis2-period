@@ -1,5 +1,7 @@
-import { chunk, head, last, range } from 'lodash';
-
+import { chunk, find, head, last, range, sortBy, uniqBy } from 'lodash';
+import { PeriodTypeEnum } from '../constants/period-types.constant';
+import { getLastNthPeriods } from '../helpers/get-last-nth-periods.helper';
+import { PeriodInterface } from '../interfaces/period.interface';
 import { Calendar } from './calendar/calendar.utility';
 
 export class PeriodInstance {
@@ -168,64 +170,243 @@ export class PeriodInstance {
   getRelativePeriods(type: string) {
     switch (type) {
       case 'RelativeBiMonth': {
+        const biMonthlyPeriods = this.includeLastPeriods(
+          this.getBiMonthlyPeriods(this._year),
+          PeriodTypeEnum.BI_MONTHLY,
+          this._year
+        );
+
+        const lastBiMonthlyPeriods = this.includeLastPeriods(
+          this.getBiMonthlyPeriods(this._year - 1),
+          PeriodTypeEnum.BI_MONTHLY,
+          this._year - 1
+        );
+
+        const currentBiMonthlyPeriod: PeriodInterface = find(
+          biMonthlyPeriods || [],
+          ['id', this.getBiMonthlyPeriodId(this._year, this._biMonth)]
+        );
         return [
-          { id: 'THIS_BIMONTH', type, name: 'This Bi-month' },
+          {
+            id: 'THIS_BIMONTH',
+            type,
+            name: 'This Bi-month',
+            iso: currentBiMonthlyPeriod,
+          },
           {
             id: 'LAST_BIMONTH',
             type,
             name: 'Last Bi-month',
+            iso: currentBiMonthlyPeriod
+              ? currentBiMonthlyPeriod.lastPeriod
+              : null,
           },
-          { id: 'LAST_6_BIMONTHS', type, name: 'Last 6 bi-month' },
+          {
+            id: 'LAST_6_BIMONTHS',
+            type,
+            name: 'Last 6 bi-month',
+            iso: getLastNthPeriods(
+              [...lastBiMonthlyPeriods, ...biMonthlyPeriods],
+              currentBiMonthlyPeriod,
+              6
+            ),
+          },
         ];
       }
 
       case 'RelativeMonth': {
+        const monthlyPeriods = this.includeLastPeriods(
+          this.getMonthlyPeriods(this._year),
+          PeriodTypeEnum.MONTHLY,
+          this._year
+        );
+
+        const lastMonthlyPeriods = this.includeLastPeriods(
+          this.getMonthlyPeriods(this._year - 1),
+          PeriodTypeEnum.MONTHLY,
+          this._year - 1
+        );
+
+        const lastLastMonthlyPeriods = this.includeLastPeriods(
+          this.getMonthlyPeriods(this._year - 2),
+          PeriodTypeEnum.MONTHLY,
+          this._year - 2
+        );
+
+        const currentMonthlyPeriod: PeriodInterface = find(
+          monthlyPeriods || [],
+          ['id', this.getMonthPeriodId(this._year, this._month)]
+        );
+
         return [
-          { id: 'THIS_MONTH', type, name: 'This Month' },
-          { id: 'LAST_MONTH', type, name: 'Last Month' },
+          {
+            id: 'THIS_MONTH',
+            type,
+            name: 'This Month',
+            iso: currentMonthlyPeriod,
+          },
+          {
+            id: 'LAST_MONTH',
+            type,
+            name: 'Last Month',
+            iso: currentMonthlyPeriod ? currentMonthlyPeriod.lastPeriod : null,
+          },
           {
             id: 'LAST_3_MONTHS',
             type,
             name: 'Last 3 Months',
+            iso: getLastNthPeriods(
+              [...lastMonthlyPeriods, ...monthlyPeriods],
+              currentMonthlyPeriod,
+              3
+            ),
           },
-          { id: 'LAST_6_MONTHS', type, name: 'Last 6 Months' },
-          { id: 'LAST_12_MONTHS', type, name: 'Last 12 Months' },
+          {
+            id: 'LAST_6_MONTHS',
+            type,
+            name: 'Last 6 Months',
+            iso: getLastNthPeriods(
+              [...lastMonthlyPeriods, ...monthlyPeriods],
+              currentMonthlyPeriod,
+              6
+            ),
+          },
+          {
+            id: 'LAST_12_MONTHS',
+            type,
+            name: 'Last 12 Months',
+            iso: getLastNthPeriods(
+              [
+                ...lastLastMonthlyPeriods,
+                ...lastMonthlyPeriods,
+                ...monthlyPeriods,
+              ],
+              currentMonthlyPeriod,
+              12
+            ),
+          },
         ];
       }
 
       case 'RelativeQuarter': {
+        const quarterPeriods = this.includeLastPeriods(
+          this.getQuarterlyPeriods(this._year),
+          PeriodTypeEnum.QUARTERLY,
+          this._year
+        );
+
+        const lastYearQuarterPeriods = this.includeLastPeriods(
+          this.getQuarterlyPeriods(this._year - 1),
+          PeriodTypeEnum.QUARTERLY,
+          this._year - 1
+        );
+
+        const currentQuarter: PeriodInterface = find(quarterPeriods || [], [
+          'id',
+          this.getQuarterPeriodId(this._year, this._quarter),
+        ]);
+
         return [
-          { id: 'THIS_QUARTER', type, name: 'This Quarter' },
+          {
+            id: 'THIS_QUARTER',
+            type,
+            name: 'This Quarter',
+            iso: currentQuarter,
+          },
           {
             id: 'LAST_QUARTER',
             type,
             name: 'Last Quarter',
+            iso: currentQuarter ? currentQuarter.lastPeriod : null,
           },
-          { id: 'LAST_4_QUARTERS', type, name: 'Last 4 Quarters' },
+          {
+            id: 'LAST_4_QUARTERS',
+            type,
+            name: 'Last 4 Quarters',
+            iso: getLastNthPeriods(
+              [...lastYearQuarterPeriods, ...quarterPeriods],
+              currentQuarter,
+              4
+            ),
+          },
         ];
       }
 
       case 'RelativeSixMonth': {
+        const sixMonthlyPeriods = this.includeLastPeriods(
+          this.getSixMonthlyPeriods(this._year),
+          PeriodTypeEnum.SIX_MONTHLY,
+          this._year
+        );
+
+        const lastSixMonthlyPeriods = this.includeLastPeriods(
+          this.getSixMonthlyPeriods(this._year - 1),
+          PeriodTypeEnum.SIX_MONTHLY,
+          this._year - 1
+        );
+
+        const currentSixMonthly: PeriodInterface = find(
+          sixMonthlyPeriods || [],
+          ['id', this.getSixMonthlyPeriodId(this._year, this._sixMonth)]
+        );
         return [
-          { id: 'THIS_SIX_MONTH', type, name: 'This Six-month' },
+          {
+            id: 'THIS_SIX_MONTH',
+            type,
+            name: 'This Six-month',
+            iso: currentSixMonthly,
+          },
           {
             id: 'LAST_SIX_MONTH',
             type,
             name: 'Last Six-month',
+            iso: currentSixMonthly ? currentSixMonthly.lastPeriod : null,
           },
-          { id: 'LAST_2_SIXMONTHS', type, name: 'Last 2 Six-month' },
+          {
+            id: 'LAST_2_SIXMONTHS',
+            type,
+            name: 'Last 2 Six-month',
+            iso: getLastNthPeriods(
+              [...lastSixMonthlyPeriods, ...sixMonthlyPeriods],
+              currentSixMonthly,
+              2
+            ),
+          },
         ];
       }
 
       case 'RelativeYear': {
+        const yearPeriods = this.includeLastPeriods(
+          this.getYearlyPeriods(this._year, PeriodTypeEnum.YEARLY, '', -1, 20),
+          PeriodTypeEnum.YEARLY,
+          this._year
+        );
+
+        const currentYear: PeriodInterface = find(yearPeriods || [], [
+          'id',
+          this._year.toString(),
+        ]);
+
         return [
-          { id: 'THIS_YEAR', type, name: 'This Year' },
+          { id: 'THIS_YEAR', type, name: 'This Year', iso: currentYear },
           {
             id: 'LAST_YEAR',
             type,
             name: 'Last Year',
+            iso: currentYear ? currentYear.lastPeriod : null,
           },
-          { id: 'LAST_5_YEARS', type, name: 'Last 5 Years' },
+          {
+            id: 'LAST_5_YEARS',
+            type,
+            name: 'Last 5 Years',
+            iso: getLastNthPeriods(yearPeriods, currentYear, 5),
+          },
+          {
+            id: 'LAST_10_YEARS',
+            type,
+            name: 'Last 10 Years',
+            iso: getLastNthPeriods(yearPeriods, currentYear, 10),
+          },
         ];
       }
 
@@ -272,6 +453,12 @@ export class PeriodInstance {
 
         return {
           id,
+          startDate: this.getDate(monthYear, monthIndex + 1, 1),
+          endDate: this.getDate(
+            monthYear,
+            monthIndex + 1,
+            this._calendar.getDaysInMonth(monthYear, monthIndex + 1)
+          ),
           type: 'Monthly',
           name: `${monthName} ${monthYear}`,
           daily: this.getChildrenPeriods(
@@ -311,6 +498,12 @@ export class PeriodInstance {
 
       return {
         id,
+        startDate: this.getDate(year, startMonth.index + 1, 1),
+        endDate: this.getDate(
+          year,
+          endMonth.index + 1,
+          this._calendar.getDaysInMonth(year, endMonth.index + 1)
+        ),
         type: 'Quarterly',
         name: this.getPeriodNameByRange(startMonth, endMonth, year),
         daily: this.getChildrenPeriods(
@@ -401,6 +594,12 @@ export class PeriodInstance {
 
         return {
           id,
+          startDate: this.getDate(year, sixMonthIndex > 0 ? 6 : 1, 1),
+          endDate: this.getDate(
+            year,
+            sixMonthIndex + 6,
+            this._calendar.getDaysInMonth(year, sixMonthIndex + 6)
+          ),
           type: 'SixMonthly',
           name: `${[head(sixMonths || []), last(sixMonths || [])].join(
             ' - '
@@ -440,8 +639,18 @@ export class PeriodInstance {
         'April'
       );
 
+      const month = (sixMonthAprilIndex + 1) * 6 - 2;
+      const nextEndMonth = month + 5;
+      const endMonth = nextEndMonth > 12 ? nextEndMonth - 12 : nextEndMonth;
+
       return {
         id,
+        startDate: this.getDate(year, month, 1),
+        endDate: this.getDate(
+          nextEndMonth > 12 ? year + 1 : year,
+          endMonth,
+          this._calendar.getDaysInMonth(year, endMonth)
+        ),
         type: 'SixMonthlyApril',
         name: this.getPeriodNameByRange(
           head(sixMonthApril || []),
@@ -472,9 +681,12 @@ export class PeriodInstance {
 
   getSixMonthlyNovemberPeriods(year: number) {
     return chunk(
-      this.getMonthsByOffset(
-        this.getMonthWithYears(this._monthNames, year, -2),
-        this._quarterMonthOffset
+      sortBy(
+        this.getMonthsByOffset(
+          this.getMonthWithYears(this._monthNames, year + 1, -2),
+          this._quarterMonthOffset
+        ),
+        ['year', 'index']
       ),
       6
     ).map((sixMonthNovember, sixMonthNovemberIndex) => {
@@ -484,8 +696,19 @@ export class PeriodInstance {
         'Nov'
       );
 
+      const startMonth = (sixMonthNovemberIndex + 1) * 6 + 5;
+      const month = startMonth > 12 ? startMonth - 12 : startMonth;
+      const nextEndMonth = month + 5;
+      const endMonth = nextEndMonth > 12 ? nextEndMonth - 12 : nextEndMonth;
+
       return {
         id,
+        startDate: this.getDate(startMonth > 12 ? year + 1 : year, month, 1),
+        endDate: this.getDate(
+          year + 1,
+          endMonth,
+          this._calendar.getDaysInMonth(year, endMonth)
+        ),
         type: 'SixMonthlyNovember',
         name: this.getPeriodNameByRange(
           head(sixMonthNovember || []),
@@ -514,15 +737,33 @@ export class PeriodInstance {
     });
   }
 
-  getYearlyPeriods(year: any, type: string, idSuffix = '', monthIndex = -1) {
-    return range(10)
-      .map(yearIndex => {
+  getYearlyPeriods(
+    year: any,
+    type: string,
+    idSuffix = '',
+    monthIndex = -1,
+    yearRange: number = 10
+  ) {
+    return range(yearRange)
+      .map((yearIndex) => {
         const periodYear = parseInt(year, 10) - yearIndex;
         const id = this.getYearlyPeriodId(periodYear, idSuffix);
         const name = this.getYearlyPeriodName(periodYear, monthIndex);
 
+        const endMonth = monthIndex + 13 > 12 ? monthIndex : monthIndex + 13;
+
         return {
           id,
+          startDate: this.getDate(
+            periodYear,
+            monthIndex + (monthIndex < 0 ? 2 : 1),
+            1
+          ),
+          endDate: this.getDate(
+            periodYear,
+            endMonth,
+            this._calendar.getDaysInMonth(periodYear, endMonth)
+          ),
           type,
           name,
           daily: this.getChildrenPeriods(id, type, 'Daily', this._preferences),
@@ -550,7 +791,9 @@ export class PeriodInstance {
   }
 
   omitFuturePeriods(periods: any[], type: string) {
-    return periods.filter(period => period.id < this.getCurrentPeriodId(type));
+    return periods.filter(
+      (period) => period.id < this.getCurrentPeriodId(type)
+    );
   }
 
   getCurrentPeriodId(type: string) {
@@ -647,6 +890,12 @@ export class PeriodInstance {
     return (
       year + (monthNumber < 10 ? `0${monthNumber}` : monthNumber).toString()
     );
+  }
+
+  getDate(year: number, monthNumber: number, day: number) {
+    const month = monthNumber < 10 ? `0${monthNumber}` : monthNumber;
+    const date = day < 10 ? `0${day}` : day;
+    return `${date}-${month}-${year}`;
   }
 
   getQuarterPeriodId(year: number, quarterNumber: number) {

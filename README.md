@@ -1,3 +1,3 @@
-# DHIS2 Period Library
+# Period Utilities
 
-Typescript library with period services for DHIS2 apps
+Javascript library comprising various DHIS2 based period utilities to help in generating different period parameters for DHIS2 applications

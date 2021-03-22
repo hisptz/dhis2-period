@@ -1,3 +1,3 @@
-# Typescript Library
+# Period Utilities
 
-Typescript based boilerplate library for simplifying creation of typescript based libraries
+Javascript library comprising various DHIS2 based period utilities to help in generating different period parameters for DHIS2 applications

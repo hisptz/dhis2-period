@@ -102,6 +102,14 @@
 								<li class="tsd-kind-variable"><a href="globals.html#periodtypes" class="tsd-kind-icon">period<wbr>Types</a></li>
 							</ul>
 						</section>
+						<section class="tsd-index-section ">
+							<h3>Functions</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-function"><a href="globals.html#deduceperiodtypefromid" class="tsd-kind-icon">deduce<wbr>Period<wbr>Type<wbr>From<wbr>Id</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#getlastnthperiods" class="tsd-kind-icon">get<wbr>Last<wbr>Nth<wbr>Periods</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#getperiodyearfromid" class="tsd-kind-icon">get<wbr>Period<wbr>Year<wbr>From<wbr>Id</a></li>
+							</ul>
+						</section>
 					</div>
 				</section>
 			</section>
@@ -113,7 +121,7 @@
 					<div class="tsd-signature tsd-kind-icon">period<wbr>Type<span class="tsd-signature-symbol">:</span> <a href="classes/periodtype.html" class="tsd-signature-type">PeriodType</a><span class="tsd-signature-symbol"> =&nbsp;new PeriodType()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/hisptz/dhis2-period/blob/d7c349f/lib/src/model/period-type.spec.ts#L3">model/period-type.spec.ts:3</a></li>
+							<li>Defined in <a href="https://github.com/hisptz/dhis2-period/blob/1ed9987/lib/src/model/period-type.spec.ts#L3">model/period-type.spec.ts:3</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -123,9 +131,87 @@
 					<div class="tsd-signature tsd-kind-icon">period<wbr>Types<span class="tsd-signature-symbol">:</span> <a href="interfaces/periodtypeinterface.html" class="tsd-signature-type">PeriodTypeInterface</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[{ id: PeriodTypeEnum.MONTHLY, name: PeriodTypeEnum.MONTHLY, rank: 3 },{ id: PeriodTypeEnum.BI_MONTHLY, name: PeriodTypeEnum.BI_MONTHLY, rank: 4 },{ id: PeriodTypeEnum.QUARTERLY, name: PeriodTypeEnum.QUARTERLY, rank: 5 },{ id: PeriodTypeEnum.SIX_MONTHLY, name: PeriodTypeEnum.SIX_MONTHLY, rank: 6 },{id: PeriodTypeEnum.SIX_MONTHLY_APRIL,name: PeriodTypeEnum.SIX_MONTHLY_APRIL,rank: 6,},{id: PeriodTypeEnum.SIX_MONTHLY_NOVEMBER,name: PeriodTypeEnum.SIX_MONTHLY_NOVEMBER,rank: 6,},{ id: PeriodTypeEnum.YEARLY, name: PeriodTypeEnum.YEARLY, rank: 7 },{id: PeriodTypeEnum.FINANCIAL_APRIL,name: PeriodTypeEnum.FINANCIAL_APRIL,rank: 7,},{id: PeriodTypeEnum.FINANCIAL_JULY,name: PeriodTypeEnum.FINANCIAL_JULY,rank: 7,},{id: PeriodTypeEnum.FINANCIAL_OCTOBER,name: PeriodTypeEnum.FINANCIAL_OCTOBER,rank: 7,},{id: PeriodTypeEnum.FINANCIAL_NOVEMBER,name: PeriodTypeEnum.FINANCIAL_NOVEMBER,rank: 7,},{id: PeriodTypeEnum.RELATIVE_WEEK,name: PeriodTypeEnum.RELATIVE_WEEK,rank: 2,},{id: PeriodTypeEnum.RELATIVE_MONTH,name: PeriodTypeEnum.RELATIVE_MONTH,rank: 3,},{id: PeriodTypeEnum.RELATIVE_BI_MONTH,name: PeriodTypeEnum.RELATIVE_BI_MONTH,rank: 3,},{id: PeriodTypeEnum.RELATIVE_SIX_MONTH,name: PeriodTypeEnum.RELATIVE_SIX_MONTH,rank: 6,},{id: PeriodTypeEnum.RELATIVE_QUARTER,name: PeriodTypeEnum.RELATIVE_QUARTER,rank: 5,},{id: PeriodTypeEnum.RELATIVE_YEAR,name: PeriodTypeEnum.RELATIVE_YEAR,rank: 7,},{id: PeriodTypeEnum.RELATIVE_FINANCIAL_YEAR,name: PeriodTypeEnum.RELATIVE_FINANCIAL_YEAR,rank: 7,},]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/hisptz/dhis2-period/blob/d7c349f/lib/src/constants/period-types.constant.ts#L24">constants/period-types.constant.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/hisptz/dhis2-period/blob/1ed9987/lib/src/constants/period-types.constant.ts#L24">constants/period-types.constant.ts:24</a></li>
 						</ul>
 					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="deduceperiodtypefromid" class="tsd-anchor"></a>
+					<h3>deduce<wbr>Period<wbr>Type<wbr>From<wbr>Id</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">deduce<wbr>Period<wbr>Type<wbr>From<wbr>Id<span class="tsd-signature-symbol">(</span>periodId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/hisptz/dhis2-period/blob/1ed9987/lib/src/helpers/deduce-period-type-from-id.helper.ts#L3">helpers/deduce-period-type-from-id.helper.ts:3</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>periodId: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="getlastnthperiods" class="tsd-anchor"></a>
+					<h3>get<wbr>Last<wbr>Nth<wbr>Periods</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Last<wbr>Nth<wbr>Periods<span class="tsd-signature-symbol">(</span>periods<span class="tsd-signature-symbol">: </span><a href="interfaces/periodinterface.html" class="tsd-signature-type">PeriodInterface</a><span class="tsd-signature-symbol">[]</span>, currentPeriod<span class="tsd-signature-symbol">: </span><a href="interfaces/periodinterface.html" class="tsd-signature-type">PeriodInterface</a>, periodCount<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="interfaces/periodinterface.html" class="tsd-signature-type">PeriodInterface</a><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/hisptz/dhis2-period/blob/1ed9987/lib/src/helpers/get-last-nth-periods.helper.ts#L4">helpers/get-last-nth-periods.helper.ts:4</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>periods: <a href="interfaces/periodinterface.html" class="tsd-signature-type">PeriodInterface</a><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li>
+									<h5>currentPeriod: <a href="interfaces/periodinterface.html" class="tsd-signature-type">PeriodInterface</a></h5>
+								</li>
+								<li>
+									<h5>periodCount: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="interfaces/periodinterface.html" class="tsd-signature-type">PeriodInterface</a><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="getperiodyearfromid" class="tsd-anchor"></a>
+					<h3>get<wbr>Period<wbr>Year<wbr>From<wbr>Id</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Period<wbr>Year<wbr>From<wbr>Id<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/hisptz/dhis2-period/blob/1ed9987/lib/src/helpers/get-period-year-from-id.helper.ts#L1">helpers/get-period-year-from-id.helper.ts:1</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>id: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -189,6 +275,15 @@
 					</li>
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#periodtypes" class="tsd-kind-icon">period<wbr>Types</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#deduceperiodtypefromid" class="tsd-kind-icon">deduce<wbr>Period<wbr>Type<wbr>From<wbr>Id</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getlastnthperiods" class="tsd-kind-icon">get<wbr>Last<wbr>Nth<wbr>Periods</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getperiodyearfromid" class="tsd-kind-icon">get<wbr>Period<wbr>Year<wbr>From<wbr>Id</a>
 					</li>
 				</ul>
 			</nav>

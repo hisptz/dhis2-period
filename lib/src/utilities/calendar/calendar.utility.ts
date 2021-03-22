@@ -41,6 +41,14 @@ export class Calendar {
     return this._calendar.today().month();
   }
 
+  getDaysInMonth(year: number, month: number): number {
+    if (!month) {
+      return undefined;
+    }
+
+    return this._calendar.daysInMonth(year, month);
+  }
+
   getCurrentDay() {
     return this._calendar.today().day();
   }
