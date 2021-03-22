@@ -89,6 +89,42 @@ describe('Given I set month of April for gregorian calendar', () => {
   });
 });
 
+describe('Given I set quarter Jan-March 2020 for gregorian calendar', () => {
+  let period = new Period();
+  period.setCalendar('gregorian').setType('Quarterly').get();
+
+  const periodResult = period.getById('2020Q1');
+
+  it('should return correct start date and end date for Jan-March 2020', () => {
+    expect(periodResult.startDate).toEqual('01-01-2020');
+    expect(periodResult.endDate).toEqual('31-03-2020');
+  });
+});
+
+describe('Given I set quarter April-June 2020 for gregorian calendar', () => {
+  let period = new Period();
+  period.setCalendar('gregorian').setType('Quarterly').get();
+
+  const periodResult = period.getById('2020Q2');
+
+  it('should return correct start date and end date for April-June 2020', () => {
+    expect(periodResult.startDate).toEqual('01-04-2020');
+    expect(periodResult.endDate).toEqual('30-06-2020');
+  });
+});
+
+describe('Given I set year 2020 for gregorian calendar', () => {
+  let period = new Period();
+  period.setCalendar('gregorian').setType('Yearly').get();
+
+  const periodResult = period.getById('2020');
+
+  it('should return correct start date and end date for 2020', () => {
+    expect(periodResult.startDate).toEqual('01-01-2020');
+    expect(periodResult.endDate).toEqual('31-12-2020');
+  });
+});
+
 describe('Given I set monthly period type for gregorian calendar and previous year', () => {
   let period = new Period();
   period.setCalendar('gregorian').setType('Monthly').get();

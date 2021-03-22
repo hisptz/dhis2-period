@@ -498,6 +498,12 @@ export class PeriodInstance {
 
       return {
         id,
+        startDate: this.getDate(year, startMonth.index + 1, 1),
+        endDate: this.getDate(
+          year,
+          endMonth.index + 1,
+          this._calendar.getDaysInMonth(year, endMonth.index + 1)
+        ),
         type: 'Quarterly',
         name: this.getPeriodNameByRange(startMonth, endMonth, year),
         daily: this.getChildrenPeriods(
@@ -716,6 +722,8 @@ export class PeriodInstance {
 
         return {
           id,
+          startDate: this.getDate(periodYear, 1, 1),
+          endDate: this.getDate(periodYear, 12, 31),
           type,
           name,
           daily: this.getChildrenPeriods(id, type, 'Daily', this._preferences),
