@@ -33,7 +33,7 @@
     "husky": "^6.0.0",
     "jest": "^24.9.0",
     "ts-jest": "^24.3.0",
-    "ts-loader": "^8.1.0",
+    "ts-loader": "^9.0.0",
     "typedoc": "^0.20.35",
     "typedoc-webpack-plugin": "^1.1.4",
     "typescript": "^4.2.4",
